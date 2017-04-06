@@ -7,6 +7,12 @@ import pandas as pd
 
 train['avg_rating_of_driver']=[ by_driver if np.isnan(of_driver) else of_driver  for of_driver, by_driver in  zip(train['avg_rating_of_driver'],train['avg_rating_by_driver'])]
 
+rf = RandomForestClassifier(n_estimators=100,oob_score=True)
+
+pca = decomposition.PCA()
+pipe = Pipeline(steps=[('pca',pca),('forest',rf)])
+    prediction = rf.predict(X)
+    rf.score(X, y)
 
 
 #df_output = pd.DataFrame({'SalePrice': y_prediction}, index=df_test['SalesID'])

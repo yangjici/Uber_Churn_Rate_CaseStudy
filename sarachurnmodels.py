@@ -14,7 +14,6 @@ from sklearn.model_selection import train_test_split
 train = pd.read_csv('data/churn_train.csv',parse_dates = ['last_trip_date','signup_date'],infer_datetime_format=True)
 pulled_date = pd.to_datetime('2014-07-01')
 train['days_since_trip'] = (pulled_date - train['last_trip_date']).dt.days
-y_train_churn = (train['days_since_trip'].values > 30) * 1
 
 #impute driver ratings
 # train['avg_rating_of_driver']=['by_driver' if np.isnan(of_driver) else of_driver  for of_driver, by_driver in  zip(train['avg_rating_of_driver'],train['avg_rating_by_driver'])]self.fail('message')
@@ -36,16 +35,18 @@ def make_dummies(data, columns):
        data = pd.concat([data, dummies], axis=1)
        data = data.drop(column, axis=1)
    return data
-
+train = train.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
 new = make_dummies(train,columns=['city','phone'])
 #new = fix trips in first 30 days
-X = new.drop(['days_since_trip'],axis=1)
-X = new.drop(['last_trip_date'],axis=1)
-X = new.drop(['signup_date'],axis=1)
-X = new.drop(['trips_in_first_30_days'],axis=1)
+y_train_churn = (new['days_since_trip'].values > 30) * 1
+y_train_churn = np.array(y_train_churn)
+X = new
+X = X.drop(['days_since_trip'],axis=1)
+X = X.drop(['last_trip_date'],axis=1)
+X = X.drop(['signup_date'],axis=1)
+X = X.drop(['trips_in_first_30_days'],axis=1)
 
-y_train_churn = pd.DataFrame(y_train_churn,index=data[:,0])
-
+#,index=y_train_churn[:,0]
 #create train/test data
 X_train, X_test, y_train, y_test = train_test_split(X,y_train_churn)
 
@@ -53,5 +54,8 @@ log1 = LogisticRegression()
 lin1 = LinearRegression()
 
 #Random Forest
-rf1 = RandomForestClassifier(oob_score=True)
+rf1 = RandomForestClassifier(n_estimators=100,oob_score=True)
 rf1.fit(X_train,y_train)
+
+for f in range(X.shape[1]):
+    print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
