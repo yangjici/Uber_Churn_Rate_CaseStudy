@@ -10,6 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import make_classification
 from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.metrics import f1_score, precision_score, recall_score
 
 
 #import data with dates modified
@@ -67,3 +68,6 @@ feature_scores.plot(kind=‘barh’)
 plt.title(‘Random Forest: Feature Importance’)
 plt.savefig(‘feature_importance.jpg’,bbox_inches=‘tight’)
 plt.show()
+
+model.predict(X_test)
+f1_score(Y_test, predictions)

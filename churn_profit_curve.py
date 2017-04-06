@@ -18,7 +18,7 @@ def standard_confusion_matrix(y_true, y_pred):
 
 def profit_curve(cost_benefit, predicted_probs, labels):
     """Function to calculate list of profits based on supplied cost-benefit
-    matrix and prediced probabilities of data points and thier true labels."""
+    matrix and prediced probabilities of data points and their true labels."""
     n_obs = float(len(labels))
     # Make sure that 1 is going to be one of our thresholds
     maybe_one = [] if 1 in predicted_probs else [1]
@@ -85,4 +85,10 @@ def profit_curve_main(filepath, cost_benefit):
     print reporting_string.format(max_model.__class__.__name__, max_thresh,
                                   max_profit, proportion_positives)
 
-cost_matrix = [[,],[,]]
+cost_matrix = [[-25,25],[0,50]]
+g.fit()
+predicted = g.predict_proba()
+profit_curve(cost_matrix, predicted, y_test):
+get_model_profits(g, cost_matrix, X_train, X_test, y_train, y_test):
+plot_model_profits(model_profits, save_path=None):
+profit_curve_main(filepath, cost_benefit):
