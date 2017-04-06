@@ -9,6 +9,14 @@ train['avg_rating_of_driver']=[ by_driver if np.isnan(of_driver) else of_driver 
 
 rf = RandomForestClassifier(n_estimators=100,oob_score=True)
 
+pipeline = Pipeline([
+    ('vect', CountVectorizer()),
+    ('tfidf', TfidfTransformer()),
+    ('clf', SGDClassifier()),
+])
+predicted = pipeline.fit(Xtrain).predict(Xtrain)
+# Now evaluate all steps on test set
+predicted = pipeline.predict(Xtest)
 pca = decomposition.PCA()
 pipe = Pipeline(steps=[('pca',pca),('forest',rf)])
     prediction = rf.predict(X)

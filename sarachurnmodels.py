@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
+from sklearn.datasets import make_classification
+from sklearn.ensemble import ExtraTreesClassifier
 
 
 #import data with dates modified
@@ -56,6 +58,12 @@ lin1 = LinearRegression()
 #Random Forest
 rf1 = RandomForestClassifier(n_estimators=100,oob_score=True)
 rf1.fit(X_train,y_train)
+rf1.score(X_test,y_test)
 
-for f in range(X.shape[1]):
-    print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
+feature_scores_rf = pd.DataFrame({‘Relative Importance’ : gb_opt.feature_importances_}, index= train2.columns)
+
+feature_scores_rf = feature_scores_rf.sort_values(by=‘Relative Importance’)
+feature_scores.plot(kind=‘barh’)
+plt.title(‘Random Forest: Feature Importance’)
+plt.savefig(‘feature_importance.jpg’,bbox_inches=‘tight’)
+plt.show()
