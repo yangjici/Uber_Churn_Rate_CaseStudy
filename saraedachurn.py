@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import sklearn.linear_model as skl
 import sklearn.tree as skt
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import seaborn as sns
 from pandas.tools.plotting import scatter_matrix
 
@@ -24,3 +24,4 @@ y_train_churn = (train['days_since_trip'].values > 30) * 1
 y_train_churn
 
 train['driver_experience'] = ['low' if x <4.0 else 'high' for x in train['avg_rating_by_driver']]
+train['avg_rating_of_driver']=[ by_driver if np.isnan(of_driver) else of_driver  for of_driver, by_driver in  zip(train['avg_rating_of_driver'],train['avg_rating_by_driver'])]
