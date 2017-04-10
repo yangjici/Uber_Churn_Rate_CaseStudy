@@ -11,4 +11,4 @@ Using results from the finding, we made business recommendations ranging from of
 
 Presentation slide here:
 
-https://docs.google.com/presentation/d/1b7Kf_WfS_iYVaKhkk4tJLrR7fABFtDWIfH6QmXn_JJg/edit#slide=id.gc6f9e470d_0_0
+https://docs.google.com/presentation/d/1b7Kf_WfS_iYVaKhkk4tJLrR7fABFtDWIfH6QmXn_JJg/edit?usp=sharing
